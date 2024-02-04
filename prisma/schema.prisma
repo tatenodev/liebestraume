@@ -7,8 +7,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model foo {
-  id         BigInt   @id @default(autoincrement())
-  created_at DateTime @default(now()) @db.Timestamptz(6)
+model User {
+  id        Int      @id @default(autoincrement())
+  uid       String   @unique
+  createdAt DateTime @default(now())
+
+  books Book[]
+}
+
+model Book {
+  id          Int      @id @default(autoincrement())
+  title       String
+  totalPage   Int
+  currentPage Int      @default(0)
+  startDate   DateTime
+  endDate     DateTime
+  createdAt   DateTime @default(now())
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
 }
