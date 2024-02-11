@@ -13,6 +13,8 @@ model User {
   createdAt DateTime @default(now())
 
   books Book[]
+
+  @@index([uid])
 }
 
 model Book {
