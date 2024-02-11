@@ -1,3 +1,4 @@
+import { Button } from "@/ui/button";
 import { UserButton, currentUser } from "@clerk/nextjs";
 import Link from "next/link";
 
@@ -17,7 +18,7 @@ export default async function HomePage() {
     <main>
       <h1>Liebestraume</h1>
       <UserButton afterSignOutUrl="/" />
-      <div>{JSON.stringify(user)}</div>
+      <Button>本を追加</Button>
     </main>
   );
 }
