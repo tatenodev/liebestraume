@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 type CreateBookProps = {
   title: string;
   totalPage: number;
-  currentPage: number;
+  currentPage?: number;
   startDate: Date;
   endDate: Date;
   uid: string;
@@ -15,7 +15,7 @@ type CreateBookProps = {
 export async function createBook({
   title,
   totalPage,
-  currentPage,
+  currentPage = 0,
   startDate,
   endDate,
   uid,
