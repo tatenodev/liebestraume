@@ -17,14 +17,13 @@ export function AddBook({ uid }: AddBookProps) {
   const handleAddBook = async () => {
     if (startDate === "" || endDate === "") return alert("日付指定なし");
 
-    const { data } = await createBook({
+    await createBook({
       title,
       totalPage: parseInt(totalPage),
       startDate: new Date(startDate),
       endDate: new Date(endDate),
       uid: uid,
     });
-    alert(JSON.stringify(data));
   };
 
   const handleChangeTotalPage = (totalPage: string) => {
