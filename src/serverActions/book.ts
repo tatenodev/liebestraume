@@ -1,8 +1,6 @@
 "use server";
-import { PrismaClient } from "@prisma/client";
 import { revalidatePath } from "next/cache";
-
-const prisma = new PrismaClient();
+import prisma from "./prisma";
 
 type CreateBookProps = {
   title: string;
@@ -63,5 +61,12 @@ export async function updateBook(props: UpdateBookProps) {
     },
   });
 
-  return { data: updated }
+  return { data: updated };
+}
+
+export async function deleteBook(bookId: number) {
+  const deleted = await prisma.book.delete({ where: { id: bookId } });
+  revalidatePath("/");
+
+  return { data: deleted };
 }

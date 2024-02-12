@@ -1,5 +1,6 @@
 import { getBooks } from "@/serverActions/book";
 import { currentUser } from "@clerk/nextjs";
+import { BooksDeleteButton } from "./BooksDeleteButton";
 
 export async function Books() {
   const user = await currentUser();
@@ -14,12 +15,15 @@ export async function Books() {
 
   return (
     <div>
+      <div>=========================</div>
       {data.map((item) => (
         <div key={item.id}>
           <div>{item.title}</div>
           <div>
             進捗率: {calculateProgressRate(item.totalPage, item.currentPage)}%
           </div>
+          <BooksDeleteButton bookId={item.id} />
+          <hr />
         </div>
       ))}
     </div>
