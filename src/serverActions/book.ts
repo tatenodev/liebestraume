@@ -45,3 +45,23 @@ export async function getBooks(uid: string) {
 
   return { data: books };
 }
+
+type UpdateBookProps = {
+  id: number;
+  title?: string;
+  totalPage?: number;
+  currentPage?: number;
+  startDate?: Date;
+  endDate?: Date;
+};
+
+export async function updateBook(props: UpdateBookProps) {
+  const updated = await prisma.book.update({
+    where: { id: props.id },
+    data: {
+      ...props,
+    },
+  });
+
+  return { data: updated }
+}
