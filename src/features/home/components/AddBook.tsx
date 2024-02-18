@@ -13,10 +13,12 @@ export function AddBook({ uid }: AddBookProps) {
   const [totalPage, setTotalPage] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleAddBook = async () => {
-    if (startDate === "" || endDate === "") return alert("日付指定なし");
+    if (startDate === "" || endDate === "") return alert("日付指定がない");
 
+    setIsLoading(true);
     await createBook({
       title,
       totalPage: parseInt(totalPage),
@@ -24,6 +26,7 @@ export function AddBook({ uid }: AddBookProps) {
       endDate: new Date(endDate),
       uid: uid,
     });
+    setIsLoading(false);
   };
 
   const handleChangeTotalPage = (totalPage: string) => {
@@ -82,7 +85,9 @@ export function AddBook({ uid }: AddBookProps) {
           onChange={(e) => setEndDate(e.target.value)}
         />
       </div>
-      <Button onClick={handleAddBook}>本を追加</Button>
+      <Button onClick={handleAddBook} disabled={isLoading}>
+        {isLoading ? "追加中..." : "本を追加"}
+      </Button>
     </div>
   );
 }

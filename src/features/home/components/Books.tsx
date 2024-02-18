@@ -20,6 +20,23 @@ export async function Books() {
         <div key={item.id}>
           <div>{item.title}</div>
           <div>
+            開始日:{" "}
+            {new Date(item.startDate).toLocaleDateString("ja-JP", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            })}
+          </div>
+          <div>
+            目標日:{" "}
+            {new Date(item.endDate).toLocaleDateString("ja-JP", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            })}
+          </div>
+          <div>ページ数: {item.totalPage}ページ</div>
+          <div>
             進捗率: {calculateProgressRate(item.totalPage, item.currentPage)}%
           </div>
           <BooksDeleteButton bookId={item.id} />
