@@ -1,4 +1,5 @@
-import { UserButton, currentUser } from "@clerk/nextjs";
+import { Header } from "@/common/components/Header";
+import { currentUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { AddBook } from "./components/AddBook";
 import { Books } from "./components/Books";
@@ -8,17 +9,16 @@ export async function Home() {
 
   if (!user) {
     return (
-      <div>
-        <h1>Liebestraume</h1>
+      <main>
+        <Header />
         <Link href="/sign-in">SignIn</Link>
-      </div>
+      </main>
     );
   }
 
   return (
     <main>
-      <h1>Liebestraume</h1>
-      <UserButton afterSignOutUrl="/" />
+      <Header />
       <AddBook uid={user.id} />
       <Books />
     </main>
