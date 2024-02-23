@@ -1,6 +1,6 @@
 "use client";
 
-import { Provider, SSRProvider, lightTheme } from "@adobe/react-spectrum";
+import { Provider, lightTheme } from "@adobe/react-spectrum";
 
 interface ReactSpectrumProviderProps {
   children: React.ReactNode;
@@ -9,9 +9,5 @@ interface ReactSpectrumProviderProps {
 export const ReactSpectrumProvider = ({
   children,
 }: ReactSpectrumProviderProps) => {
-  return (
-    <SSRProvider>
-      <Provider theme={lightTheme}>{children}</Provider>
-    </SSRProvider>
-  );
+  return <Provider theme={lightTheme}>{children}</Provider>;
 };

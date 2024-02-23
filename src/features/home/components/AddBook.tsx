@@ -1,9 +1,13 @@
 "use client";
 import { createBook } from "@/serverActions/book";
 import {
+  ActionButton,
   Button,
   ButtonGroup,
+  Content,
   DateRangePicker,
+  Dialog,
+  DialogTrigger,
   Form,
   TextField,
 } from "@adobe/react-spectrum";
@@ -21,9 +25,8 @@ export function AddBook({ uid }: AddBookProps) {
   const [schedule, setSchedule] = useState<RangeValue<DateValue>>();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleAddBook = async () => {
+  const handleAddBook = async (onClose: () => void) => {
     if (!schedule) return alert("日付指定がない");
-
     setIsLoading(true);
     await createBook({
       title,
@@ -33,6 +36,7 @@ export function AddBook({ uid }: AddBookProps) {
       uid: uid,
     });
     setIsLoading(false);
+    onClose();
   };
 
   const handleChangeTotalPage = (totalPage: string) => {
@@ -52,35 +56,44 @@ export function AddBook({ uid }: AddBookProps) {
   };
 
   return (
-    <Form maxWidth="size-3600">
-      <TextField
-        label="タイトル"
-        type="text"
-        value={title}
-        onChange={(value) => setTitle(value)}
-      />
-      <TextField
-        label="読むページ数"
-        type="text"
-        inputMode="numeric"
-        pattern="\d*"
-        value={totalPage}
-        onChange={(value) => handleChangeTotalPage(value)}
-      />
-      <DateRangePicker
-        label="目標の開始日と終了日"
-        onChange={(e) => setSchedule(e)}
-        value={schedule}
-      />
-      <ButtonGroup>
-        <Button
-          onPress={handleAddBook}
-          isDisabled={isLoading}
-          variant={"primary"}
-        >
-          {isLoading ? "追加中..." : "本を追加"}
-        </Button>
-      </ButtonGroup>
-    </Form>
+    <DialogTrigger isDismissable>
+      <ActionButton>本を追加</ActionButton>
+      {(close) => (
+        <Dialog>
+          <Content>
+            <Form>
+              <TextField
+                label="タイトル"
+                type="text"
+                value={title}
+                onChange={(value) => setTitle(value)}
+              />
+              <TextField
+                label="読むページ数"
+                type="text"
+                inputMode="numeric"
+                pattern="\d*"
+                value={totalPage}
+                onChange={(value) => handleChangeTotalPage(value)}
+              />
+              <DateRangePicker
+                label="目標の開始日と終了日"
+                onChange={(e) => setSchedule(e)}
+                value={schedule}
+              />
+              <ButtonGroup>
+                <Button
+                  onPress={() => handleAddBook(close)}
+                  isDisabled={isLoading}
+                  variant={"primary"}
+                >
+                  {isLoading ? "追加中..." : "追加"}
+                </Button>
+              </ButtonGroup>
+            </Form>
+          </Content>
+        </Dialog>
+      )}
+    </DialogTrigger>
   );
 }
