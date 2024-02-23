@@ -29,7 +29,7 @@ export function BookItem({ item }: BookItemProps) {
         label="Progress"
         variant="positive"
         value={calculateProgressRate(item.totalPage, item.currentPage)}
-        valueLabel={`${item.currentPage} / ${item.totalPage}`}
+        valueLabel={`${item.currentPage} / ${item.totalPage}ページ`}
         marginY={18}
       />
       <div>
@@ -49,7 +49,6 @@ export function BookItem({ item }: BookItemProps) {
         })}
       </div>
       <BooksDeleteButton bookId={item.id} />
-      <hr />
     </div>
   );
 }

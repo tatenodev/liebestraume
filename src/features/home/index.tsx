@@ -1,4 +1,5 @@
 import { Header } from "@/common/components/Header";
+import { getBooks } from "@/serverActions/book";
 import { currentUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { AddBook } from "./components/AddBook";
@@ -16,11 +17,13 @@ export async function Home() {
     );
   }
 
+  const { data } = user ? await getBooks(user.id) : { data: null };
+
   return (
     <main>
       <Header />
       <AddBook uid={user.id} />
-      <Books />
+      <Books data={data} />
     </main>
   );
 }

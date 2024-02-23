@@ -1,19 +1,29 @@
-import { getBooks } from "@/serverActions/book";
-import { currentUser } from "@clerk/nextjs";
+"use client";
+
+import { View } from "@adobe/react-spectrum";
 import { BookItem } from "./BookItem";
 
-export async function Books() {
-  const user = await currentUser();
-  const { data } = user ? await getBooks(user.id) : { data: null };
+type BooksProps = {
+  data:
+    | {
+        id: number;
+        title: string;
+        totalPage: number;
+        currentPage: number;
+        startDate: Date;
+        endDate: Date;
+        createdAt: Date;
+        userId: number;
+      }[]
+    | null;
+};
 
+export function Books({ data }: BooksProps) {
   if (!data) return <></>;
 
   return (
-    <div>
-      <div>=========================</div>
-      {data.map((item) => (
-        <BookItem key={item.id} item={item} />
-      ))}
-    </div>
+    <View>
+      {data.map((item) => <BookItem item={item} />)}
+    </View>
   );
 }

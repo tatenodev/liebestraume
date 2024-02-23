@@ -1,6 +1,6 @@
 "use client";
 import { deleteBook } from "@/serverActions/book";
-import { Button } from "@/ui/button";
+import { Button } from "@adobe/react-spectrum";
 import { useState } from "react";
 
 type BooksDeleteButtonProps = {
@@ -17,7 +17,11 @@ export function BooksDeleteButton({ bookId }: BooksDeleteButtonProps) {
   };
 
   return (
-    <Button onClick={() => handleClick(bookId)} disabled={isLoading}>
+    <Button
+      onPress={() => handleClick(bookId)}
+      isDisabled={isLoading}
+      variant="primary"
+    >
       {isLoading ? "削除中..." : "削除する"}
     </Button>
   );
