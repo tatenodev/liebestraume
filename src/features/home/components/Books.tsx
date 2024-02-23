@@ -23,7 +23,9 @@ export function Books({ data }: BooksProps) {
 
   return (
     <View>
-      {data.map((item) => <BookItem item={item} />)}
+      {data.map((item) => (
+        <BookItem item={item} />
+      ))}
     </View>
   );
 }

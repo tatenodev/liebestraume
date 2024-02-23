@@ -1,6 +1,7 @@
 "use client";
 
-import { Meter } from "@adobe/react-spectrum";
+import { Meter, View } from "@adobe/react-spectrum";
+import { calculateProgressRate } from "../functions";
 import { BooksDeleteButton } from "./BooksDeleteButton";
 
 type BookItemProps = {
@@ -17,13 +18,14 @@ type BookItemProps = {
 };
 
 export function BookItem({ item }: BookItemProps) {
-  const calculateProgressRate = (denominator: number, numerator: number) => {
-    const result = numerator / denominator;
-    return result;
-  };
-
   return (
-    <div>
+    <View
+      borderRadius="medium"
+      marginBottom="size-200"
+      marginX="size-200"
+      padding="size-100"
+      UNSAFE_style={{ boxShadow: "0px 0px 4px rgba(0, 0, 0, .5)" }}
+    >
       <div>{item.title}</div>
       <Meter
         label="Progress"
@@ -49,6 +51,6 @@ export function BookItem({ item }: BookItemProps) {
         })}
       </div>
       <BooksDeleteButton bookId={item.id} />
-    </div>
+    </View>
   );
 }
