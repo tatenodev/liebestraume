@@ -10,6 +10,7 @@
     "prisma:format": "npx prisma format"
   },
   "dependencies": {
+    "@adobe/react-spectrum": "^3.34.1",
     "@clerk/nextjs": "^4.29.5",
     "@prisma/client": "^5.9.1",
     "next": "14.1.0",
