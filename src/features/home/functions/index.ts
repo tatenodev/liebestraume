@@ -1,7 +1,7 @@
 export const calculateProgressRate = (
-  denominator: number,
   numerator: number,
+  denominator: number,
 ) => {
-  const result = numerator / denominator;
+  const result = (numerator / denominator) * 100;
   return result;
 };

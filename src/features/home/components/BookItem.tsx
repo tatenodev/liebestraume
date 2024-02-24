@@ -37,7 +37,7 @@ export function BookItem({ item }: BookItemProps) {
       <Meter
         label={meterLabel(item.totalPage, item.currentPage)}
         variant="positive"
-        value={calculateProgressRate(item.totalPage, item.currentPage)}
+        value={calculateProgressRate(item.currentPage, item.totalPage)}
         valueLabel={`${item.currentPage} / ${item.totalPage}ページ`}
         marginY={18}
         width="100%"

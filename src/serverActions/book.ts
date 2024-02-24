@@ -39,7 +39,10 @@ export async function createBook({
 }
 
 export async function getBooks(uid: string) {
-  const books = await prisma.book.findMany({ where: { user: { uid } } });
+  const books = await prisma.book.findMany({
+    where: { user: { uid } },
+    orderBy: { startDate: "asc" },
+  });
 
   return { data: books };
 }
@@ -60,6 +63,29 @@ export async function updateBook(props: UpdateBookProps) {
       ...props,
     },
   });
+  revalidatePath("/");
+
+  return { data: updated };
+}
+
+type IncrementPageProps = {
+  id: number;
+  incrementValue: number;
+};
+
+export async function incrementPage({
+  id,
+  incrementValue,
+}: IncrementPageProps) {
+  const updated = await prisma.book.update({
+    where: { id },
+    data: {
+      currentPage: {
+        increment: incrementValue,
+      },
+    },
+  });
+  revalidatePath("/");
 
   return { data: updated };
 }

@@ -1,8 +1,10 @@
 "use client";
-import { updateBook } from "@/serverActions/book";
+import { incrementPage } from "@/serverActions/book";
 import {
   ActionButton,
-  AlertDialog,
+  ButtonGroup,
+  Content,
+  Dialog,
   DialogTrigger,
 } from "@adobe/react-spectrum";
 import { useState } from "react";
@@ -14,26 +16,33 @@ type UpdateBookProps = {
 export function UpdateBook({ bookId }: UpdateBookProps) {
   const [isLoading, setIsLoading] = useState(false);
 
-  const handlePress = async (id: number) => {
+  const handlePress = async (onClose: () => void) => {
     setIsLoading(true);
-    // await updateBook({id});
+    await incrementPage({
+      id: bookId,
+      incrementValue: 10,
+    });
     setIsLoading(false);
+    onClose();
   };
 
   return (
-    <DialogTrigger>
+    <DialogTrigger isDismissable>
       <ActionButton>更新</ActionButton>
-      <AlertDialog
-        title="本の更新"
-        variant="information"
-        primaryActionLabel="更新する"
-        cancelLabel="キャンセル"
-        autoFocusButton="cancel"
-        onPrimaryAction={() => handlePress(bookId)}
-        isPrimaryActionDisabled={isLoading}
-      >
-        更新
-      </AlertDialog>
+      {(close) => (
+        <Dialog>
+          <Content>
+            <ButtonGroup>
+              <ActionButton
+                onPress={() => handlePress(close)}
+                isDisabled={isLoading}
+              >
+                更新
+              </ActionButton>
+            </ButtonGroup>
+          </Content>
+        </Dialog>
+      )}
     </DialogTrigger>
   );
 }
