@@ -4,6 +4,7 @@ import { Flex, Meter, View } from "@adobe/react-spectrum";
 import { Text } from "@adobe/react-spectrum";
 import { calculateProgressRate } from "../functions";
 import { DeleteBook } from "./DeleteBook";
+import { UpdateBook } from "./UpdateBook";
 
 type BookItemProps = {
   item: {
@@ -57,7 +58,8 @@ export function BookItem({ item }: BookItemProps) {
           })}
         </Text>
       </div>
-      <Flex justifyContent="end">
+      <Flex justifyContent="end" gap="size-100">
+        <UpdateBook bookId={item.id} />
         <DeleteBook bookId={item.id} />
       </Flex>
     </View>

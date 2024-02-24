@@ -1,5 +1,5 @@
 "use client";
-import { deleteBook } from "@/serverActions/book";
+import { updateBook } from "@/serverActions/book";
 import {
   ActionButton,
   AlertDialog,
@@ -7,32 +7,32 @@ import {
 } from "@adobe/react-spectrum";
 import { useState } from "react";
 
-type DeleteBookProps = {
+type UpdateBookProps = {
   bookId: number;
 };
 
-export function DeleteBook({ bookId }: DeleteBookProps) {
+export function UpdateBook({ bookId }: UpdateBookProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const handlePress = async (id: number) => {
     setIsLoading(true);
-    await deleteBook(id);
+    // await updateBook({id});
     setIsLoading(false);
   };
 
   return (
     <DialogTrigger>
-      <ActionButton>削除</ActionButton>
+      <ActionButton>更新</ActionButton>
       <AlertDialog
-        title="本の削除"
-        variant="destructive"
-        primaryActionLabel="削除する"
+        title="本の更新"
+        variant="information"
+        primaryActionLabel="更新する"
         cancelLabel="キャンセル"
         autoFocusButton="cancel"
         onPrimaryAction={() => handlePress(bookId)}
         isPrimaryActionDisabled={isLoading}
       >
-        本を削除しますか？
+        更新
       </AlertDialog>
     </DialogTrigger>
   );
