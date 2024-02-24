@@ -22,9 +22,9 @@ export function Books({ data }: BooksProps) {
   if (!data) return <></>;
 
   return (
-    <View>
+    <View paddingTop="size-300">
       {data.map((item) => (
-        <BookItem item={item} />
+        <BookItem key={item.id} item={item} />
       ))}
     </View>
   );

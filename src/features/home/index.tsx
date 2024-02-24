@@ -2,7 +2,6 @@ import { Header } from "@/common/components/Header";
 import { getBooks } from "@/serverActions/book";
 import { currentUser } from "@clerk/nextjs";
 import Link from "next/link";
-import { AddBook } from "./components/AddBook";
 import { Books } from "./components/Books";
 
 export async function Home() {
@@ -22,7 +21,6 @@ export async function Home() {
   return (
     <main>
       <Header />
-      <AddBook uid={user.id} />
       <Books data={data} />
     </main>
   );

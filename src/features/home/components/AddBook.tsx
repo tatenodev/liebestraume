@@ -57,7 +57,7 @@ export function AddBook({ uid }: AddBookProps) {
 
   return (
     <DialogTrigger isDismissable>
-      <ActionButton>本を追加</ActionButton>
+      <Button variant="accent">本を追加</Button>
       {(close) => (
         <Dialog>
           <Content>
@@ -82,13 +82,12 @@ export function AddBook({ uid }: AddBookProps) {
                 value={schedule}
               />
               <ButtonGroup>
-                <Button
+                <ActionButton
                   onPress={() => handleAddBook(close)}
                   isDisabled={isLoading}
-                  variant={"primary"}
                 >
                   {isLoading ? "追加中..." : "追加"}
-                </Button>
+                </ActionButton>
               </ButtonGroup>
             </Form>
           </Content>
