@@ -1,8 +1,9 @@
 "use client";
 
-import { Meter, View } from "@adobe/react-spectrum";
+import { Flex, Meter, View } from "@adobe/react-spectrum";
+import { Text } from "@adobe/react-spectrum";
 import { calculateProgressRate } from "../functions";
-import { BooksDeleteButton } from "./BooksDeleteButton";
+import { DeleteBook } from "./DeleteBook";
 
 type BookItemProps = {
   item: {
@@ -18,6 +19,11 @@ type BookItemProps = {
 };
 
 export function BookItem({ item }: BookItemProps) {
+  const meterLabel = (totalPage: number, currentPage: number) => {
+    if (totalPage <= currentPage) return "読了";
+    return "進行中";
+  };
+
   return (
     <View
       borderRadius="medium"
@@ -26,31 +32,34 @@ export function BookItem({ item }: BookItemProps) {
       padding="size-100"
       UNSAFE_style={{ boxShadow: "0px 0px 4px rgba(0, 0, 0, .5)" }}
     >
-      <div>{item.title}</div>
+      <h2>{item.title}</h2>
       <Meter
-        label="Progress"
+        label={meterLabel(item.totalPage, item.currentPage)}
         variant="positive"
         value={calculateProgressRate(item.totalPage, item.currentPage)}
         valueLabel={`${item.currentPage} / ${item.totalPage}ページ`}
         marginY={18}
+        width="100%"
       />
       <div>
-        開始日:{" "}
-        {new Date(item.startDate).toLocaleDateString("ja-JP", {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-        })}
+        <Text>
+          Period:{" "}
+          {new Date(item.startDate).toLocaleDateString("ja-JP", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          })}{" "}
+          ―{" "}
+          {new Date(item.endDate).toLocaleDateString("ja-JP", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          })}
+        </Text>
       </div>
-      <div>
-        目標日:{" "}
-        {new Date(item.endDate).toLocaleDateString("ja-JP", {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-        })}
-      </div>
-      <BooksDeleteButton bookId={item.id} />
+      <Flex justifyContent="end">
+        <DeleteBook bookId={item.id} />
+      </Flex>
     </View>
   );
 }
