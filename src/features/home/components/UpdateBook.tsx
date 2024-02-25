@@ -6,24 +6,43 @@ import {
   Content,
   Dialog,
   DialogTrigger,
+  Form,
+  TextField,
 } from "@adobe/react-spectrum";
 import { useState } from "react";
+import type { BookItemProps } from "./BookItem";
 
-type UpdateBookProps = {
-  bookId: number;
-};
-
-export function UpdateBook({ bookId }: UpdateBookProps) {
+export function UpdateBook({ book }: BookItemProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const [page, setPage] = useState("");
 
   const handlePress = async (onClose: () => void) => {
+    const rest = book.totalPage - book.currentPage;
+    if (rest < parseInt(page)) return alert("ページの上限が超えている");
     setIsLoading(true);
     await incrementPage({
-      id: bookId,
-      incrementValue: 10,
+      id: book.id,
+      incrementValue: parseInt(page),
     });
     setIsLoading(false);
+    setPage("");
     onClose();
+  };
+
+  const handleChangePage = (Page: string) => {
+    const re = /^\d+$/;
+    switch (true) {
+      case re.test(Page):
+        setPage(Page);
+        break;
+
+      case Page === "":
+        setPage("");
+        break;
+
+      default:
+        break;
+    }
   };
 
   return (
@@ -32,14 +51,24 @@ export function UpdateBook({ bookId }: UpdateBookProps) {
       {(close) => (
         <Dialog>
           <Content>
-            <ButtonGroup>
-              <ActionButton
-                onPress={() => handlePress(close)}
-                isDisabled={isLoading}
-              >
-                更新
-              </ActionButton>
-            </ButtonGroup>
+            <Form>
+              <TextField
+                type="text"
+                label="今日読んだページ数"
+                inputMode="numeric"
+                pattern="\d*"
+                value={page}
+                onChange={(value) => handleChangePage(value)}
+              />
+              <ButtonGroup align="center">
+                <ActionButton
+                  onPress={() => handlePress(close)}
+                  isDisabled={isLoading}
+                >
+                  更新
+                </ActionButton>
+              </ButtonGroup>
+            </Form>
           </Content>
         </Dialog>
       )}

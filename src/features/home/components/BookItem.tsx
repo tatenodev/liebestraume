@@ -6,8 +6,8 @@ import { calculateProgressRate } from "../functions";
 import { DeleteBook } from "./DeleteBook";
 import { UpdateBook } from "./UpdateBook";
 
-type BookItemProps = {
-  item: {
+export type BookItemProps = {
+  book: {
     id: number;
     title: string;
     totalPage: number;
@@ -19,7 +19,7 @@ type BookItemProps = {
   };
 };
 
-export function BookItem({ item }: BookItemProps) {
+export function BookItem({ book }: BookItemProps) {
   const meterLabel = (totalPage: number, currentPage: number) => {
     if (totalPage <= currentPage) return "読了";
     return "進行中";
@@ -33,25 +33,25 @@ export function BookItem({ item }: BookItemProps) {
       padding="size-100"
       UNSAFE_style={{ boxShadow: "0px 0px 4px rgba(0, 0, 0, .5)" }}
     >
-      <h2>{item.title}</h2>
+      <h2>{book.title}</h2>
       <Meter
-        label={meterLabel(item.totalPage, item.currentPage)}
+        label={meterLabel(book.totalPage, book.currentPage)}
         variant="positive"
-        value={calculateProgressRate(item.currentPage, item.totalPage)}
-        valueLabel={`${item.currentPage} / ${item.totalPage}ページ`}
+        value={calculateProgressRate(book.currentPage, book.totalPage)}
+        valueLabel={`${book.currentPage} / ${book.totalPage}ページ`}
         marginY={18}
         width="100%"
       />
       <div>
         <Text>
           Period:{" "}
-          {new Date(item.startDate).toLocaleDateString("ja-JP", {
+          {new Date(book.startDate).toLocaleDateString("ja-JP", {
             year: "numeric",
             month: "2-digit",
             day: "2-digit",
           })}{" "}
           ―{" "}
-          {new Date(item.endDate).toLocaleDateString("ja-JP", {
+          {new Date(book.endDate).toLocaleDateString("ja-JP", {
             year: "numeric",
             month: "2-digit",
             day: "2-digit",
@@ -59,8 +59,8 @@ export function BookItem({ item }: BookItemProps) {
         </Text>
       </div>
       <Flex justifyContent="end" gap="size-100">
-        <UpdateBook bookId={item.id} />
-        <DeleteBook bookId={item.id} />
+        <UpdateBook book={book} />
+        <DeleteBook bookId={book.id} />
       </Flex>
     </View>
   );
