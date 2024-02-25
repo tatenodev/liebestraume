@@ -29,7 +29,6 @@ export function BookItem({ book }: BookItemProps) {
     <View
       borderRadius="medium"
       marginBottom="size-200"
-      marginX="size-200"
       padding="size-100"
       UNSAFE_style={{ boxShadow: "0px 0px 4px rgba(0, 0, 0, .5)" }}
     >
