@@ -29,20 +29,10 @@ export function UpdateBook({ book }: BookItemProps) {
     onClose();
   };
 
-  const handleChangePage = (Page: string) => {
+  const handleChangePage = (page: string) => {
     const re = /^\d+$/;
-    switch (true) {
-      case re.test(Page):
-        setPage(Page);
-        break;
-
-      case Page === "":
-        setPage("");
-        break;
-
-      default:
-        break;
-    }
+    if (re.test(page)) setPage(page);
+    if (page === "") setPage("");
   };
 
   return (

@@ -41,18 +41,8 @@ export function AddBook({ uid }: AddBookProps) {
 
   const handleChangeTotalPage = (totalPage: string) => {
     const re = /^\d+$/;
-    switch (true) {
-      case re.test(totalPage):
-        setTotalPage(totalPage);
-        break;
-
-      case totalPage === "":
-        setTotalPage("");
-        break;
-
-      default:
-        break;
-    }
+    if (re.test(totalPage)) setTotalPage(totalPage);
+    if (totalPage === "") setTotalPage("");
   };
 
   return (
@@ -81,7 +71,7 @@ export function AddBook({ uid }: AddBookProps) {
                 onChange={(e) => setSchedule(e)}
                 value={schedule}
               />
-              <ButtonGroup>
+              <ButtonGroup align="center">
                 <ActionButton
                   onPress={() => handleAddBook(close)}
                   isDisabled={isLoading}
