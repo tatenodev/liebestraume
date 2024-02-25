@@ -35,19 +35,18 @@ export function Books({ data }: BooksProps) {
     done: [],
   };
 
-  const categorizeBooks = data.reduce((prev, current) => {
-    if (current.totalPage === current.currentPage) {
-      prev.done.push(current);
-    }
-
+  const categorizeBooks = data.reduce((accumulator, current) => {
     const startTime = new Date(current.startDate).getTime();
-    if (nowTime > startTime || current.currentPage !== 0) {
-      prev.inProgress.push(current);
+
+    if (current.totalPage === current.currentPage) {
+      accumulator.done.push(current);
+    } else if (nowTime > startTime || current.currentPage !== 0) {
+      accumulator.inProgress.push(current);
     } else {
-      prev.newBooks.push(current);
+      accumulator.newBooks.push(current);
     }
 
-    return prev;
+    return accumulator;
   }, initialBooks);
 
   return (
