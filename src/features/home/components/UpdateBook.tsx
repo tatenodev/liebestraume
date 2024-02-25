@@ -53,7 +53,7 @@ export function UpdateBook({ book }: BookItemProps) {
               <ButtonGroup align="center">
                 <ActionButton
                   onPress={() => handlePress(close)}
-                  isDisabled={isLoading}
+                  isDisabled={page === "" || isLoading}
                 >
                   更新
                 </ActionButton>
