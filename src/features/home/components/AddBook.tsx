@@ -1,5 +1,5 @@
 "use client";
-import { createBook } from "@/serverActions/book";
+import { createBook } from "@/serverActions/book/create";
 import {
   ActionButton,
   Button,

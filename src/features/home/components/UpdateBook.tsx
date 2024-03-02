@@ -1,5 +1,5 @@
 "use client";
-import { incrementPage } from "@/serverActions/book";
+import { incrementPage } from "@/serverActions/book/update";
 import {
   ActionButton,
   ButtonGroup,

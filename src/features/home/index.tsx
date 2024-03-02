@@ -1,5 +1,5 @@
 import { Header } from "@/common/components/Header";
-import { getCategorizeBooks } from "@/serverActions/book";
+import { getCategorizeBooks } from "@/serverActions/book/read";
 import { currentUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { Books } from "./components/Books";

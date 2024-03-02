@@ -1,5 +1,5 @@
 "use client";
-import { deleteBook } from "@/serverActions/book";
+import { deleteBook } from "@/serverActions/book/delete";
 import {
   ActionButton,
   AlertDialog,
