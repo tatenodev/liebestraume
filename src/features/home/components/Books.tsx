@@ -16,10 +16,11 @@ type Book = {
 };
 
 type BooksProps = {
-  data: Book[] | null;
+  data: CategorizeBooks | null;
 };
 
 type CategorizeBooks = {
+  all: Book[];
   newBooks: Book[];
   inProgress: Book[];
   done: Book[];
@@ -27,27 +28,6 @@ type CategorizeBooks = {
 
 export function Books({ data }: BooksProps) {
   if (!data) return <></>;
-
-  const nowTime = new Date().getTime();
-  const initialBooks: CategorizeBooks = {
-    newBooks: [],
-    inProgress: [],
-    done: [],
-  };
-
-  const categorizeBooks = data.reduce((accumulator, current) => {
-    const startTime = new Date(current.startDate).getTime();
-
-    if (current.totalPage === current.currentPage) {
-      accumulator.done.push(current);
-    } else if (nowTime > startTime || current.currentPage !== 0) {
-      accumulator.inProgress.push(current);
-    } else {
-      accumulator.newBooks.push(current);
-    }
-
-    return accumulator;
-  }, initialBooks);
 
   return (
     <View paddingX="size-200">
@@ -60,22 +40,22 @@ export function Books({ data }: BooksProps) {
         </TabList>
         <TabPanels>
           <Item key="New">
-            {categorizeBooks.newBooks.map((book) => (
+            {data.newBooks.map((book) => (
               <BookItem key={book.id} book={book} />
             ))}
           </Item>
           <Item key="InProgress">
-            {categorizeBooks.inProgress.map((book) => (
+            {data.inProgress.map((book) => (
               <BookItem key={book.id} book={book} />
             ))}
           </Item>
           <Item key="Done">
-            {categorizeBooks.done.map((book) => (
+            {data.done.map((book) => (
               <BookItem key={book.id} book={book} />
             ))}
           </Item>
           <Item key="All">
-            {data.map((book) => (
+            {data.all.map((book) => (
               <BookItem key={book.id} book={book} />
             ))}
           </Item>

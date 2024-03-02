@@ -1,5 +1,5 @@
 import { Header } from "@/common/components/Header";
-import { getBooks } from "@/serverActions/book";
+import { getCategorizeBooks } from "@/serverActions/book";
 import { currentUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { Books } from "./components/Books";
@@ -16,12 +16,15 @@ export async function Home() {
     );
   }
 
-  const { data } = user ? await getBooks(user.id) : { data: null };
+  const categorizeBooks = await getCategorizeBooks(
+    user.id,
+    new Date().getTime(),
+  );
 
   return (
     <main>
       <Header />
-      <Books data={data} />
+      <Books data={categorizeBooks.data} />
     </main>
   );
 }
